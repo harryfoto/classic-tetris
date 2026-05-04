@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Classic Tetris</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="app" aria-label="Classic Tetris">
+      <section class="play-area" aria-label="Game board">
+        <div class="board-shell">
+          <canvas id="board" width="300" height="600" aria-label="Tetris board"></canvas>
+          <div id="overlay" class="overlay is-visible">
+            <h1>Classic Tetris</h1>
+            <p id="overlayText">Enter 또는 Start로 시작</p>
+            <button id="overlayButton" type="button">Start</button>
+          </div>
+        </div>
+        <div class="dancer" aria-hidden="true">
+          <div class="dancer-shadow"></div>
+          <div class="dancer-body">
+            <span class="dancer-hat"></span>
+            <span class="dancer-head"></span>
+            <span class="dancer-arm dancer-arm-left"></span>
+            <span class="dancer-arm dancer-arm-right"></span>
+            <span class="dancer-coat"></span>
+            <span class="dancer-belt"></span>
+            <span class="dancer-leg dancer-leg-left"></span>
+            <span class="dancer-leg dancer-leg-right"></span>
+            <span class="dancer-boot dancer-boot-left"></span>
+            <span class="dancer-boot dancer-boot-right"></span>
+          </div>
+        </div>
+      </section>
+
+      <aside class="panel" aria-label="Game information and controls">
+        <div class="brand">
+          <span class="mark" aria-hidden="true"></span>
+          <div>
+            <p>Classic</p>
+            <h2>Tetris</h2>
+          </div>
+        </div>
+
+        <div class="stats" aria-label="Score board">
+          <div>
+            <span>Score</span>
+            <strong id="score">0</strong>
+          </div>
+          <div>
+            <span>Best</span>
+            <strong id="best">0</strong>
+          </div>
+          <div>
+            <span>Level</span>
+            <strong id="level">1</strong>
+          </div>
+          <div>
+            <span>Lines</span>
+            <strong id="lines">0</strong>
+          </div>
+        </div>
+
+        <div class="previews">
+          <div class="preview-box">
+            <span>Hold</span>
+            <canvas id="hold" width="112" height="112" aria-label="Held piece"></canvas>
+          </div>
+          <div class="preview-box">
+            <span>Next</span>
+            <canvas id="next" width="112" height="112" aria-label="Next piece"></canvas>
+          </div>
+        </div>
+
+        <div class="actions" aria-label="Game actions">
+          <button id="startButton" type="button">Start</button>
+          <button id="pauseButton" type="button" disabled>Pause</button>
+          <button id="resetButton" type="button">Reset</button>
+          <button id="musicButton" type="button">Music On</button>
+        </div>
+
+        <div class="touch-controls" aria-label="Touch controls">
+          <button type="button" data-action="left" aria-label="Move left">←</button>
+          <button type="button" data-action="rotate" aria-label="Rotate clockwise">↻</button>
+          <button type="button" data-action="right" aria-label="Move right">→</button>
+          <button type="button" data-action="hold" aria-label="Hold piece">C</button>
+          <button type="button" data-action="down" aria-label="Soft drop">↓</button>
+          <button type="button" data-action="drop" aria-label="Hard drop">⤓</button>
+        </div>
+
+        <div class="controls" aria-label="Keyboard controls">
+          <h3>Controls</h3>
+          <dl>
+            <div><dt>Move</dt><dd>← →</dd></div>
+            <div><dt>Soft Drop</dt><dd>↓</dd></div>
+            <div><dt>Hard Drop</dt><dd>Space</dd></div>
+            <div><dt>Rotate</dt><dd>↑ / X</dd></div>
+            <div><dt>Counter</dt><dd>Z</dd></div>
+            <div><dt>Hold</dt><dd>C</dd></div>
+            <div><dt>Pause</dt><dd>P</dd></div>
+          </dl>
+        </div>
+      </aside>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>
