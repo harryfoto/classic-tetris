@@ -386,6 +386,11 @@ function holdPiece() {
   if (hold) {
     current = makePiece(hold);
     hold = type;
+    if (collides(current)) {
+      endGame();
+      drawBoard();
+      return;
+    }
   } else {
     hold = type;
     spawnPiece();
