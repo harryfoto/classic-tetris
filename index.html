@@ -2,18 +2,21 @@
 <html lang="ko">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="description" content="브라우저에서 바로 즐기는 클래식 테트리스. 고스트 피스, 홀드, 하드 드롭 지원.">
+    <meta name="theme-color" content="#101416">
     <title>Classic Tetris</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23101416'/><rect x='5' y='5' width='11' height='11' fill='%2334c7a1'/><rect x='16' y='16' width='11' height='11' fill='%23f0c64a'/></svg>">
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <main class="app" aria-label="Classic Tetris">
-      <section class="play-area" aria-label="Game board">
+    <main class="app">
+      <section class="play-area" aria-label="게임 보드">
         <div class="board-shell">
-          <canvas id="board" width="300" height="600" aria-label="Tetris board"></canvas>
-          <div id="overlay" class="overlay is-visible">
-            <h1>Classic Tetris</h1>
-            <p id="overlayText">Enter 또는 Start로 시작</p>
+          <canvas id="board" aria-label="테트리스 보드"></canvas>
+          <div id="overlay" class="overlay is-visible" aria-hidden="false">
+            <h1 id="overlayTitle">Classic Tetris</h1>
+            <p id="overlayText" role="status">Enter 또는 Start로 시작</p>
             <button id="overlayButton" type="button">Start</button>
           </div>
         </div>
@@ -34,7 +37,7 @@
         </div>
       </section>
 
-      <aside class="panel" aria-label="Game information and controls">
+      <aside class="panel" aria-label="점수와 조작">
         <div class="brand">
           <span class="mark" aria-hidden="true"></span>
           <div>
@@ -43,62 +46,62 @@
           </div>
         </div>
 
-        <div class="stats" aria-label="Score board">
+        <div class="stats" aria-label="점수판">
           <div>
-            <span>Score</span>
+            <span>점수</span>
             <strong id="score">0</strong>
           </div>
           <div>
-            <span>Best</span>
+            <span>최고</span>
             <strong id="best">0</strong>
           </div>
           <div>
-            <span>Level</span>
+            <span>레벨</span>
             <strong id="level">1</strong>
           </div>
           <div>
-            <span>Lines</span>
+            <span>줄</span>
             <strong id="lines">0</strong>
           </div>
         </div>
 
         <div class="previews">
           <div class="preview-box">
-            <span>Hold</span>
-            <canvas id="hold" width="112" height="112" aria-label="Held piece"></canvas>
+            <span>홀드</span>
+            <canvas id="hold" aria-label="보관 중인 조각"></canvas>
           </div>
           <div class="preview-box">
-            <span>Next</span>
-            <canvas id="next" width="112" height="112" aria-label="Next piece"></canvas>
+            <span>다음</span>
+            <canvas id="next" aria-label="다음 조각 3개"></canvas>
           </div>
         </div>
 
-        <div class="actions" aria-label="Game actions">
+        <div class="actions">
           <button id="startButton" type="button">Start</button>
           <button id="pauseButton" type="button" disabled>Pause</button>
-          <button id="resetButton" type="button">Reset</button>
-          <button id="musicButton" type="button">Music On</button>
+          <button id="soundButton" type="button" aria-pressed="false">Sound: Off</button>
         </div>
 
-        <div class="touch-controls" aria-label="Touch controls">
-          <button type="button" data-action="left" aria-label="Move left">←</button>
-          <button type="button" data-action="rotate" aria-label="Rotate clockwise">↻</button>
-          <button type="button" data-action="right" aria-label="Move right">→</button>
-          <button type="button" data-action="hold" aria-label="Hold piece">C</button>
-          <button type="button" data-action="down" aria-label="Soft drop">↓</button>
-          <button type="button" data-action="drop" aria-label="Hard drop">⤓</button>
+        <div class="touch-controls" aria-label="터치 조작">
+          <button type="button" data-action="counter" aria-label="반시계 회전">↺</button>
+          <button type="button" data-action="drop" aria-label="하드 드롭">⤓</button>
+          <button type="button" data-action="rotate" aria-label="시계 회전">↻</button>
+          <button type="button" data-action="left" aria-label="왼쪽으로 이동">←</button>
+          <button type="button" data-action="down" aria-label="소프트 드롭">↓</button>
+          <button type="button" data-action="right" aria-label="오른쪽으로 이동">→</button>
+          <button type="button" data-action="hold" class="wide" aria-label="조각 보관">홀드</button>
         </div>
 
-        <div class="controls" aria-label="Keyboard controls">
-          <h3>Controls</h3>
+        <div class="controls">
+          <h3>키보드</h3>
           <dl>
-            <div><dt>Move</dt><dd>← →</dd></div>
-            <div><dt>Soft Drop</dt><dd>↓</dd></div>
-            <div><dt>Hard Drop</dt><dd>Space</dd></div>
-            <div><dt>Rotate</dt><dd>↑ / X</dd></div>
-            <div><dt>Counter</dt><dd>Z</dd></div>
-            <div><dt>Hold</dt><dd>C</dd></div>
-            <div><dt>Pause</dt><dd>P</dd></div>
+            <div><dt>이동</dt><dd>← →</dd></div>
+            <div><dt>소프트 드롭</dt><dd>↓</dd></div>
+            <div><dt>하드 드롭</dt><dd>Space</dd></div>
+            <div><dt>시계 회전</dt><dd>↑ / X</dd></div>
+            <div><dt>반시계 회전</dt><dd>Z</dd></div>
+            <div><dt>홀드</dt><dd>C</dd></div>
+            <div><dt>일시정지</dt><dd>P</dd></div>
           </dl>
         </div>
       </aside>
