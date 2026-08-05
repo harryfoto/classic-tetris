@@ -78,8 +78,7 @@ let dropCounter;
 let lastTime;
 let lockTimer;
 let bestScore;
-let clearingRows = null;
-let clearTimer = 0;
+let flash = null;               // 줄 삭제 섬광. 순수 장식이며 진행을 막지 않는다.
 
 let audioContext;
 let musicTimer;
@@ -325,15 +324,14 @@ function drawBoard() {
     });
   });
 
-  // 줄 삭제 연출: 사라질 줄을 흰색으로 덮었다가 서서히 지운다.
-  if (clearingRows) {
-    const progress = Math.min(1, clearTimer / CLEAR_DELAY);
-    boardCtx.fillStyle = `rgba(255, 255, 255, ${0.85 * (1 - progress)})`;
-    clearingRows.forEach((y) => {
-      const inset = (BLOCK * 0.5) * progress;
-      boardCtx.fillRect(inset, y * BLOCK, COLS * BLOCK - inset * 2, BLOCK);
+  // 줄 삭제 섬광. 이미 지워진 뒤에 덧그리는 장식이라 진행과 무관하다.
+  if (flash) {
+    const progress = Math.min(1, flash.t / CLEAR_DELAY);
+    const inset = (BLOCK * 0.5) * progress;
+    boardCtx.fillStyle = `rgba(255, 255, 255, ${0.8 * (1 - progress)})`;
+    flash.rows.forEach((y) => {
+      boardCtx.fillRect(inset, y * BLOCK + inset * 0.3, COLS * BLOCK - inset * 2, BLOCK - inset * 0.6);
     });
-    return;
   }
 
   if (current && isRunning) {
@@ -458,25 +456,19 @@ function lockPiece() {
   const full = findFullRows();
 
   if (full.length) {
-    clearingRows = full;
-    clearTimer = 0;
+    removeRows(full);                 // 점수와 보드는 즉시 반영한다
+    flash = { rows: full, t: 0 };     // 섬광은 그 위에 얹는 장식일 뿐
     playSfx(full.length === 4 ? "tetris" : "clear");
   } else {
     playSfx("lock");
-    spawnPiece();
   }
-  updatePanel();
-}
 
-function finishClear() {
-  removeRows(clearingRows);
-  clearingRows = null;
   spawnPiece();
   updatePanel();
 }
 
 function canAct() {
-  return isRunning && !isPaused && !isGameOver && current && !clearingRows;
+  return isRunning && !isPaused && !isGameOver && Boolean(current);
 }
 
 function move(dx, silent = false) {
@@ -591,14 +583,19 @@ function handleRepeats(delta) {
 }
 
 function gameLoop(time = 0) {
-  const delta = Math.min(time - lastTime, 100);   // 탭 복귀 시 폭주 방지
+  // 음수가 되면 타이머가 영영 채워지지 않는다. 상한과 하한을 모두 건다.
+  const delta = Math.max(0, Math.min(time - lastTime, 100));
   lastTime = time;
 
+  if (flash) {
+    flash.t += delta;
+    if (flash.t >= CLEAR_DELAY) flash = null;
+  }
+
   if (isRunning && !isPaused && !isGameOver) {
-    if (clearingRows) {
-      clearTimer += delta;
-      if (clearTimer >= CLEAR_DELAY) finishClear();
-    } else if (current) {
+    if (!current) spawnPiece();       // 어떤 이유로든 조각이 비면 즉시 복구
+
+    if (current) {
       handleRepeats(delta);
       dropCounter += delta;
       if (collides(current, 0, 1)) {
@@ -631,7 +628,7 @@ function startGame() {
   dropCounter = 0;
   lastTime = performance.now();
   lockTimer = 0;
-  clearingRows = null;
+  flash = null;
   musicStep = 0;
   clearRepeats();
   refillQueue();
