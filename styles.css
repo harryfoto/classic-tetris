@@ -247,174 +247,235 @@ button:focus-visible {
 
 .dancer {
   position: relative;
-  width: 118px;
-  height: 188px;
-  flex: 0 0 118px;
-  margin-bottom: 10px;
+  width: 122px;
+  height: 196px;
+  flex: 0 0 122px;
+  margin-bottom: 8px;
 }
 
 .dancer-shadow {
   position: absolute;
-  left: 22px;
-  right: 22px;
-  bottom: 5px;
-  height: 14px;
+  left: 20px;
+  right: 20px;
+  bottom: 4px;
+  height: 13px;
   border-radius: 50%;
-  background: rgba(0, 0, 0, 0.28);
-  animation: shadow-step 760ms ease-in-out infinite;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.42), rgba(0, 0, 0, 0) 72%);
+  animation: prisyadka-shadow 1200ms ease-in-out infinite;
 }
 
-.dancer-body {
+.dancer-figure {
   position: absolute;
-  left: 24px;
-  bottom: 18px;
+  left: 26px;
+  bottom: 14px;
   width: 70px;
-  height: 156px;
+  height: 162px;
   transform-origin: 50% 100%;
-  animation: folk-dance 760ms ease-in-out infinite;
+  animation: prisyadka 1200ms ease-in-out infinite;
 }
 
-.dancer-body span {
+.dancer-figure span {
   position: absolute;
   display: block;
 }
 
-.dancer-hat {
-  left: 17px;
+/* 파파하 — 양털 모자 */
+.dancer .hat {
+  left: 14px;
   top: 0;
-  width: 36px;
-  height: 18px;
-  border-radius: 7px 7px 4px 4px;
-  background: #273237;
-  border-bottom: 4px solid #f2f7f4;
+  width: 42px;
+  height: 20px;
+  border-radius: 19px 19px 6px 6px;
+  background:
+    repeating-linear-gradient(112deg, rgba(255, 255, 255, 0.07) 0 2px, rgba(0, 0, 0, 0.12) 2px 4px),
+    linear-gradient(180deg, #4a3b32, #2b211c);
+  box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.35);
 }
 
-.dancer-head {
-  left: 20px;
-  top: 16px;
-  width: 30px;
-  height: 32px;
-  border-radius: 50% 50% 45% 45%;
-  background: #f0b27a;
-}
-
-.dancer-arm {
-  top: 58px;
+.dancer .hat::after {
+  content: "";
+  position: absolute;
+  left: 12px;
+  top: 3px;
   width: 18px;
-  height: 62px;
-  border-radius: 999px;
-  background: #2f7fbe;
-  transform-origin: 50% 8px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.14);
 }
 
-.dancer-arm-left {
-  left: -3px;
-  transform: rotate(49deg);
-  animation: arm-left 760ms ease-in-out infinite;
+.dancer .head {
+  left: 21px;
+  top: 15px;
+  width: 28px;
+  height: 30px;
+  border-radius: 46% 46% 44% 44%;
+  background: linear-gradient(160deg, #f2bd8c, #d99a68);
 }
 
-.dancer-arm-right {
-  right: -3px;
-  transform: rotate(-49deg);
-  animation: arm-right 760ms ease-in-out infinite;
+.dancer .eye {
+  top: 26px;
+  width: 3px;
+  height: 4px;
+  border-radius: 2px;
+  background: #2b211c;
 }
 
-.dancer-coat {
-  left: 13px;
-  top: 48px;
-  width: 44px;
-  height: 70px;
-  border-radius: 8px 8px 16px 16px;
-  background: #d94343;
-  box-shadow: inset 0 -12px 0 #b93030, inset 0 0 0 3px rgba(255, 255, 255, 0.12);
+.dancer .eye-l { left: 27px; }
+.dancer .eye-r { left: 40px; }
+
+.dancer .beard {
+  left: 21px;
+  top: 32px;
+  width: 28px;
+  height: 17px;
+  border-radius: 12% 12% 48% 48%;
+  background: linear-gradient(180deg, #8a6b4e, #6d5138);
 }
 
-.dancer-belt {
+/* 코소보로트카 — 옆으로 여미는 붉은 셔츠 */
+.dancer .shirt {
   left: 11px;
-  top: 83px;
+  top: 45px;
   width: 48px;
+  height: 60px;
+  border-radius: 12px 12px 10px 10px;
+  background: linear-gradient(170deg, #d94343 0%, #c03636 62%, #a72d2d 100%);
+  box-shadow: inset -6px 0 12px rgba(0, 0, 0, 0.22);
+}
+
+.dancer .collar {
+  left: 24px;
+  top: 44px;
+  width: 22px;
   height: 8px;
   border-radius: 4px;
-  background: #f0c64a;
+  background: #f4efe4;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.16);
 }
 
-.dancer-leg {
-  top: 112px;
-  width: 18px;
-  height: 42px;
-  border-radius: 999px;
-  background: #273237;
-  transform-origin: 50% 3px;
+/* 옷깃에서 내려오는 자수 띠 */
+.dancer .placket {
+  left: 38px;
+  top: 50px;
+  width: 5px;
+  height: 34px;
+  border-radius: 2px;
+  background: repeating-linear-gradient(180deg, #f4efe4 0 3px, #e0b64a 3px 6px);
 }
 
-.dancer-leg-left {
-  left: 18px;
-  transform: rotate(18deg);
-  animation: leg-left 760ms ease-in-out infinite;
+.dancer .hem {
+  left: 11px;
+  top: 98px;
+  width: 48px;
+  height: 7px;
+  border-radius: 0 0 10px 10px;
+  background: repeating-linear-gradient(90deg, #f4efe4 0 4px, #e0b64a 4px 8px);
 }
 
-.dancer-leg-right {
-  right: 18px;
-  transform: rotate(-18deg);
-  animation: leg-right 760ms ease-in-out infinite;
-}
-
-.dancer-boot {
-  top: 148px;
-  width: 27px;
-  height: 12px;
+.dancer .sash {
+  left: 9px;
+  top: 86px;
+  width: 52px;
+  height: 10px;
   border-radius: 5px;
-  background: #101416;
+  background: linear-gradient(180deg, #f0c64a, #cfa028);
 }
 
-.dancer-boot-left {
-  left: 8px;
-  animation: boot-left 760ms ease-in-out infinite;
+.dancer .tassel {
+  left: 52px;
+  top: 94px;
+  width: 6px;
+  height: 18px;
+  border-radius: 3px 3px 4px 4px;
+  background: linear-gradient(180deg, #f0c64a, #b4881d);
 }
 
-.dancer-boot-right {
-  right: 8px;
-  animation: boot-right 760ms ease-in-out infinite;
+/* 가슴 앞에서 맞잡은 팔 */
+.dancer .arm {
+  width: 46px;
+  height: 14px;
+  border-radius: 9px;
+  background: linear-gradient(180deg, #e05050, #b93030);
 }
 
-@keyframes folk-dance {
-  0%, 100% { transform: translateY(0) rotate(-4deg); }
-  50% { transform: translateY(-11px) rotate(4deg); }
+.dancer .arm-l {
+  left: 12px;
+  top: 60px;
+  transform: rotate(-13deg);
+  box-shadow: inset 8px 0 0 rgba(244, 239, 228, 0.9);
 }
 
-@keyframes shadow-step {
-  0%, 100% { transform: scaleX(1); opacity: 0.34; }
-  50% { transform: scaleX(0.72); opacity: 0.22; }
+.dancer .arm-r {
+  left: 12px;
+  top: 70px;
+  transform: rotate(11deg);
+  box-shadow: inset -8px 0 0 rgba(244, 239, 228, 0.9);
 }
 
-@keyframes arm-left {
-  0%, 100% { transform: rotate(54deg); }
-  50% { transform: rotate(25deg); }
+/* 통 넓은 샤로바리 바지 */
+.dancer .leg {
+  top: 100px;
+  width: 22px;
+  height: 44px;
+  border-radius: 11px 11px 7px 7px;
+  background: linear-gradient(180deg, #2f4360, #1d2a3d);
+  transform-origin: 50% 5px;
 }
 
-@keyframes arm-right {
-  0%, 100% { transform: rotate(-25deg); }
-  50% { transform: rotate(-54deg); }
+.dancer .leg-l {
+  left: 13px;
+  animation: prisyadka-leg-left 1200ms ease-in-out infinite;
 }
 
-@keyframes leg-left {
-  0%, 100% { transform: rotate(22deg); }
-  50% { transform: rotate(-18deg); }
+.dancer .leg-r {
+  right: 13px;
+  animation: prisyadka-leg-right 1200ms ease-in-out infinite;
 }
 
-@keyframes leg-right {
-  0%, 100% { transform: rotate(18deg); }
-  50% { transform: rotate(-22deg); }
+.dancer .boot {
+  position: absolute;
+  left: -4px;
+  bottom: -9px;
+  width: 30px;
+  height: 17px;
+  border-radius: 5px 7px 5px 5px;
+  background: linear-gradient(180deg, #241d1a, #100c0b);
+  box-shadow: inset 0 3px 0 rgba(255, 255, 255, 0.08);
 }
 
-@keyframes boot-left {
-  0%, 100% { transform: translateX(-4px); }
-  50% { transform: translateX(12px); }
+/* 프리샤드카: 앉았다 일어나며 다리를 번갈아 찬다 */
+@keyframes prisyadka {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  18% { transform: translateY(13px) rotate(0deg); }
+  34% { transform: translateY(11px) rotate(-3deg); }
+  50% { transform: translateY(2px) rotate(0deg); }
+  68% { transform: translateY(13px) rotate(0deg); }
+  84% { transform: translateY(11px) rotate(3deg); }
 }
 
-@keyframes boot-right {
-  0%, 100% { transform: translateX(-12px); }
-  50% { transform: translateX(4px); }
+@keyframes prisyadka-shadow {
+  0%, 100% { transform: scaleX(1); opacity: 0.9; }
+  18%, 68% { transform: scaleX(1.16); opacity: 1; }
+  34%, 84% { transform: scaleX(1.1); opacity: 0.95; }
+  50% { transform: scaleX(1.02); opacity: 0.92; }
+}
+
+@keyframes prisyadka-leg-left {
+  0%, 100% { transform: rotate(4deg); }
+  18% { transform: rotate(16deg); }
+  34% { transform: rotate(-52deg); }
+  50% { transform: rotate(6deg); }
+  68% { transform: rotate(16deg); }
+  84% { transform: rotate(20deg); }
+}
+
+@keyframes prisyadka-leg-right {
+  0%, 100% { transform: rotate(-4deg); }
+  18% { transform: rotate(-16deg); }
+  34% { transform: rotate(-20deg); }
+  50% { transform: rotate(-6deg); }
+  68% { transform: rotate(-16deg); }
+  84% { transform: rotate(52deg); }
 }
 
 .touch-controls {
@@ -535,10 +596,8 @@ button:focus-visible {
 
 @media (prefers-reduced-motion: reduce) {
   .dancer-shadow,
-  .dancer-body,
-  .dancer-arm,
-  .dancer-leg,
-  .dancer-boot {
+  .dancer-figure,
+  .dancer .leg {
     animation: none;
   }
 
